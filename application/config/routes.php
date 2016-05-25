@@ -52,3 +52,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+//browser
+	//normal users
+		//users 
+			$route['login']				=	"browser/users/Users/login";
+			$route['register']			=	"browser/users/Users/register";
+			$route['register/success']	=	"browser/users/Users/showMade";
+			$route['activation/(:any)']	=	"browser/users/Users/activate/$1";
+//ajax
+	//normal users
+		//users
+			$route['ajax/register']	=	"ajax/users/Users/register";
+			$route['ajax/login']	=	"ajax/users/Users/login";
