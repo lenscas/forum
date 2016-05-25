@@ -41,10 +41,12 @@ class User_Parent extends CI_Controller {
 	}
 	//used to force a log in and get the user id as well
 	public function getIdForced(){
+		
 		$this->forceLogIn();
 		return $this->session->userId;
 	}
 	public function redirectLoggedIn(){
+		$this->load->library('session');
 		if($this->session->has_userdata("userId")){
 			redirect("profile");
 		}
@@ -63,15 +65,15 @@ class User_Parent extends CI_Controller {
 				$headerData['loggedIn']=false;
 			}
 		}
-		$this->load->view("front/defaults/header.php",$headerData);
+		$this->load->view("users/partials/header.php",$headerData);
 	}
 	//loads the header, the sidebars, the specified view and the footer
 	public function loadAll($view,$data=array(),$overWriteHeader=false){
 		$this->loadHeader($overWriteHeader);
-		$this->load->view("front/defaults/firstSideBar");
-		$this->load->view("front/".$view,$data);
-		$this->load->view("front/defaults/secondSideBar");
-		$this->load->view("front/defaults/footer.php");
+		$this->load->view("users/partials/firstSideBar");
+		$this->load->view("users/".$view,$data);
+		$this->load->view("users/partials/secondSideBar");
+		$this->load->view("users/partials/footer.php");
 	}
 	//used to load the default header+a normal view+footer
 	public function loadbasics($view,$data=array()){
