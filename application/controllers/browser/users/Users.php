@@ -43,7 +43,7 @@ class Users extends User_Parent {
 	}
 	public function profile($userName=false){
 		$contentData=array();
-		$this->load->model("users_model");
+		$this->load->model("shared/Users_model");
 		if(!$userName){
 			$contentData['userId']=parent::getIdForced();
 		} else {

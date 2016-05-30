@@ -100,15 +100,11 @@ class Users_model extends MY_Model {
 	//just a way to nicely wrap arround the getByTable function to make controllers look better that need userData
 	
 	public function getUserData($userId){
-		$data=array();
-		$data['profile']	=	$this->getUserByTable($userId,"id");
-		$data['graveyard']	=	$this->db->select("characters.id, characters.characterName as name,species.basePicture")
-			->from("characters")
-			->where("isAlive",0)
-			->where("userId",$userId)
-			->join("species","species.id=characters.speciesId")
-			->get()
-			->result_array();
+		$data	=	$this->db->select("username, status")
+					->from("users")
+					->where("id",$userId)
+					->get()
+					->row_array();
 		return $data;
 	}
 

@@ -60,8 +60,10 @@ $route['translate_uri_dashes'] = FALSE;
 			$route['register/success']	=	"browser/users/Users/showMade";
 			$route['activation/(:any)']	=	"browser/users/Users/activate/$1";
 			$route['logout']			=	"browser/users/Users/logout";
+			$route['profile']			=	"browser/users/Users/profile";
 //ajax
 	//normal users
 		//users
 			$route['ajax/register']	=	"ajax/users/Users/register";
 			$route['ajax/login']	=	"ajax/users/Users/login";
+			$route['ajax/profile/(:any)']	=	"ajax/users/Users/profile/$1";

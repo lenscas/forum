@@ -16,11 +16,8 @@
 		<table class="table removeNotExist">
 			<tbody id="userData">
 				<tr>
-					<td>total Level</td>
-					<td id="totalLevel"></td>
-				<tr>
-					<td>total earned xp</td>
-					<td id="totalXP"></td>
+					<td>Status</td>
+					<td id="status"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -38,30 +35,8 @@
 			method	:	"GET",
 			dataType:	"json",
 			success	:	function(data){
-				$("#userName").html(data.profile.username)
-				$("#totalLevel").html(data.profile.totalLevel)
-				$("#totalXP").html(data.profile.totalXP)
-				//get the template that we need
-				var template=$("#templates").find(".grave")
-				//needed so we can insert in the correct row
-				var lastRow=0
-				//needed so we can create rows when needed
-				var times=0
-				//the place where we show all the characters
-				var graveyard = $("#graveyard")
-				$.each(data.graveyard,function(key,value){
-					console.log(value)
-					if(times>=3){
-						lastRow=lastRow+1
-						times=0
-						$(graveyard).append('<div class="row" id="row'+lastRow+'"></div>')
-					}
-					$(template).find(".name").empty().append(value.name)
-					$(template).find(".graveLocation").attr("href","<?php echo base_url("index.php/character")?>/"+value.id)
-					$(template).find(".corpse").attr("src","<?php echo base_url("")?>/"+value.basePicture)
-					console.log($(template))
-					$(template).clone().appendTo($("#row"+lastRow))
-				})
+				$("#userName").html(data.username)
+				$("#status").html(data.status)
 			}
 		})
 	<?php

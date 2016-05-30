@@ -33,7 +33,9 @@ class Users extends User_Parent {
 		echo json_encode(array("error"=>$error,"success"=>$success));
 	}
 	public function profile($userId){
-		echo json_encode($this->Users_model->getUserData($userId));
+		$data=$this->Users_model->getUserData($userId);
+		//print_r($data);
+		echo json_encode($data);
 	}
 
 }
