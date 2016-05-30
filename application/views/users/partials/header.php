@@ -13,8 +13,10 @@
     <title>My mud</title>
 
     <!-- Bootstrap Core CSS -->
+    <!-- 
     <link href="<?php echo base_url("third_party/bootstrap-3.3.5-dist/css/bootstrap.min.css")?>" rel="stylesheet">
-
+	-->
+	<link href="<?php echo base_url("third_party/themes/slate.min.css") ?>" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo base_url("third_party/startbootsrtap/css/heroic-features.css")?>" rel="stylesheet">
     <!-- Font Awesome because Awesome> !-->
