@@ -41,6 +41,47 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    /*background-color:rgba(255,255,255,.8);*/
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+   /* background-color:rgba(255,255,255,.8); */
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .social-buttons{
+    margin:12px 0    
+}
+#login-dp .social-buttons a{
+    width: 49%;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+@media(max-width:768px){
+    #login-dp{
+        /*background-color: inherit;*/
+        color: #fff;
+    }
+    #login-dp .bottom{
+       /* background-color: inherit; */
+        border-top:0 none;
+    }
+}
+
+
+
+
+    </style>
 
 </head>
 <body style="padding-top:0px; height:100%; " >
@@ -74,8 +115,46 @@
 					} else {
 				?>
 					<ul class="nav navbar-nav navbar-right">
-						<li class=""><a href="<?php echo base_url("index.php/login") ?>">Login</a></li>
+						<li class="" id="headerDropdown"> <a href="#" class="dropdown-toggle"><b>Login</b> <span class="caret"></span></a>
+								<ul id="login-dp" class="dropdown-menu">
+									<li>
+										 <div class="row">
+												<div class="col-md-12">
+
+													 <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+															<div class="form-group">
+																 <label class="sr-only" for="exampleInputEmail2">Username</label>
+																 <input type="text" id="headerUsername" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+															</div>
+															<div class="form-group">
+																 <label class="sr-only" for="exampleInputPassword2">Password</label>
+																 <input type="password" id="headerPassword" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+					                                             <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+															</div>
+															<div class="form-group">
+																 <button type="submit" id="headerLogin" class="btn btn-primary btn-block">Sign in</button>
+															</div>
+															<div class="checkbox">
+																 <label>
+																 <input type="checkbox"> keep me logged-in
+																 </label>
+															</div>
+													 </form>
+												</div>
+												<div class="bottom text-center">
+													New here ? <a href="#"><b>Join Us</b></a>
+												</div>
+										 </div>
+									</li>
+								</ul>
+					        </li>
+					     
+
+						</li> 
+
 						<li class=""><a href="<?php echo base_url("index.php/register") ?>">Register</a></li>
+					</ul>
+
 					</ul>
 						
 				<?php	
@@ -87,3 +166,54 @@
 	</nav>
 	<div class="container-fluid" style="height:85%; padding-left:0;padding-right:0;">
 		<div class="col-md-12" style="height:100%; padding:0;margin:0;">
+
+
+	<script>
+		var NEED_OPEN=true;
+		$(function () {
+			$('input').iCheck({
+				checkboxClass: 'icheckbox_square-blue',
+				radioClass: 'iradio_square-blue',
+				increaseArea: '20%' // optional
+			});
+			
+		});
+		$("#headerLogin").on("click",function(event){
+				event.preventDefault();
+				var password	=	$("#headerPassword").val()
+				var username	=	$("#headerUsername").val()
+				if( password && username){
+					$.ajax({
+						url		:	"<?php echo base_url("index.php/ajax/login") ?>",
+						method	:	"POST",
+						data	:	{password : password, username : username},
+						dataType:	"json",
+						success	:	function(data){
+							console.log(data)
+							if(!data.loggedIn){
+								$("#error").empty().html("<p>"+data.error+"</p>").show();
+							} else {
+								location.reload();
+							}
+						}
+						
+					})
+				}
+			})
+
+
+		$("#headerDropdown").on("click",function(event){
+			event.preventDefault();
+
+
+			if(NEED_OPEN){
+				$( "#headerDropdown" ).addClass("open");
+			} else {
+				$( "#headerDropdown" ).removeClass("open");
+			}
+
+			NEED_OPEN= ! NEED_OPEN
+
+		})
+
+    </script>
