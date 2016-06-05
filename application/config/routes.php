@@ -61,6 +61,9 @@ $route['translate_uri_dashes'] = FALSE;
 			$route['activation/(:any)']	=	"browser/users/Users/activate/$1";
 			$route['logout']			=	"browser/users/Users/logout";
 			$route['profile']			=	"browser/users/Users/profile";
+	//admins
+		//basic
+			$route['admin/index']		=	"browser/admins/Basic/dashboard";
 //ajax
 	//normal users
 		//users

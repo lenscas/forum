@@ -1,33 +1,19 @@
 <?php
-class Game_Parent extends User_Parent {
-	public $userId;
-	public function __construct() {
+class Admin_Parent extends User_Parent	{
+	public function __construct(){
 		parent::__construct();
-		$this->userId=parent::getIdForced();
-		$this->load->model("Game_model");
+		
 	}
-
-	function getCharIdForced(){
-		$charId=$this->session->characterId;
-		if(! $charId){
-			$char=$this->Game_model->getActiveChar($this->userId);
-			if($char){
-				$this->session->set_userdata("characterId",$char['id']);
-				return $char['id'];
-			}
-			redirect("profile");
-		}
-		if($this->session->has_userdata("checkAlive")){
-			$character=$this->Game_model->getActiveChar($this->userId);
-			if($character['id']==$charId){
-				return $charId;
-			}
-			redirect("profile");
-		}
-		return $charId;
+	public function loadAll($load,$data=array(),$overWriteHeader = false){
+		$this->loadHeader();
+		$this->load->view("admin/partials/menu.php");
+		$this->load->view("admin/".$load,$data);
+		$this->load->view("admin/partials/footer.php");
+	}
+	public function loadHeader($dataOverWrite = false){
+		$this->load->view("admin/partials/header.php");
 	}
 }
-
 class User_Parent extends CI_Controller {
 	//used to make sure the construct of the parent always gets executed
 	public function __construct() {
