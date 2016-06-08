@@ -28,40 +28,51 @@
 				<li class="treeview">
 				<a href="#">
 					<i class="fa fa-pie-chart"></i>
-					<span>Producten</span>
+					<span>Categories</span>
 					<i class="fa fa-angle-left pull-right"></i>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="<?php echo base_url("index.php/admin/products/view") ?>">Bekijken</a></li>
-					<li><a href="<?php echo base_url("index.php/admin/products/add") ?>">Toevoegen</a></li>
+					<li><a href="<?php echo base_url("index.php/admin/categories") ?>">View</a></li>
+					<li><a href="<?php echo base_url("index.php/admin/categories/create") ?>">Create</a></li>
 				</ul>
-				<li class="treeview">
-				<a href="#">
-					<i class="fa fa-pie-chart"></i>
-					<span>Categorieén</span>
-					<i class="fa fa-angle-left pull-right"></i>
-				</a>
-				<ul class="treeview-menu">
-					<li><a href="<?php echo base_url("index.php/admin/categories/add") ?>">Toevoegen</a></li>
-				</ul>
-				<li class="treeview">
-				<a href="#">
-					<i class="fa fa-pie-chart"></i>
-					<span>RMA's</span>
-					<i class="fa fa-angle-left pull-right"></i>
-				</a>
-				<ul class="treeview-menu">
-					<li><a href="<?php echo base_url("index.php/admin/rma/view") ?>">Bekijken</a></li>
-				</ul>
-				<li class="treeview">
-				<a href="#">
-					<i class="fa fa-pie-chart"></i>
-					<span>Orders</span>
-					<i class="fa fa-angle-left pull-right"></i>
-				</a>
-				<ul class="treeview-menu">
-					<li><a href="<?php echo base_url("index.php/admin/orders/view") ?>">Bekijken</a></li>
-				</ul>
+				<!--
+					<a href="#">
+						<i class="fa fa-pie-chart"></i>
+						<span>Producten</span>
+						<i class="fa fa-angle-left pull-right"></i>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="<?php echo base_url("index.php/admin/products/view") ?>">Bekijken</a></li>
+						<li><a href="<?php echo base_url("index.php/admin/products/add") ?>">Toevoegen</a></li>
+					</ul>
+					<li class="treeview">
+					<a href="#">
+						<i class="fa fa-pie-chart"></i>
+						<span>Categorieén</span>
+						<i class="fa fa-angle-left pull-right"></i>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="<?php echo base_url("index.php/admin/categories/add") ?>">Toevoegen</a></li>
+					</ul>
+					<li class="treeview">
+					<a href="#">
+						<i class="fa fa-pie-chart"></i>
+						<span>RMA's</span>
+						<i class="fa fa-angle-left pull-right"></i>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="<?php echo base_url("index.php/admin/rma/view") ?>">Bekijken</a></li>
+					</ul>
+					<li class="treeview">
+					<a href="#">
+						<i class="fa fa-pie-chart"></i>
+						<span>Orders</span>
+						<i class="fa fa-angle-left pull-right"></i>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="<?php echo base_url("index.php/admin/orders/view") ?>">Bekijken</a></li>
+					</ul>
+					-->
 			</ul>
         </section>
         <!-- /.sidebar -->
