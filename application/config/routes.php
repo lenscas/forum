@@ -64,9 +64,16 @@ $route['translate_uri_dashes'] = FALSE;
 	//admins
 		//basic
 			$route['admin/index']		=	"browser/admins/Basic/dashboard";
+		//categories
+			$route['admin/categories/create']	=	"browser/admins/Categories/createCategorie";
 //ajax
 	//normal users
 		//users
 			$route['ajax/register']	=	"ajax/users/Users/register";
 			$route['ajax/login']	=	"ajax/users/Users/login";
 			$route['ajax/profile/(:any)']	=	"ajax/users/Users/profile/$1";
+			
+	//admins
+		//categories
+			$route['ajax/admin/categories/getAllRules']	=	"ajax/admins/Categories/getAllRules";
+			$route['ajax/admin/categories/create']		=	"ajax/admins/Categories/create";
