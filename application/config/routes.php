@@ -61,6 +61,9 @@ $route['translate_uri_dashes'] = FALSE;
 			$route['activation/(:any)']	=	"browser/users/Users/activate/$1";
 			$route['logout']			=	"browser/users/Users/logout";
 			$route['profile']			=	"browser/users/Users/profile";
+		//threads
+			$route['category/(:any)']	=	"browser/users/Threads/showThreadsInCategory/$1";
+			$route['thread/(:any)']		=	"browser/users/Threads/showThread/$1";
 	//admins
 		//basic
 			$route['admin/index']		=	"browser/admins/Basic/dashboard";
@@ -72,6 +75,10 @@ $route['translate_uri_dashes'] = FALSE;
 			$route['ajax/register']	=	"ajax/users/Users/register";
 			$route['ajax/login']	=	"ajax/users/Users/login";
 			$route['ajax/profile/(:any)']	=	"ajax/users/Users/profile/$1";
+		//threads
+		$route['ajax/threads/delete/(:any)']	=	"ajax/users/Threads/delete/$1";
+			$route['ajax/threads/(:any)/(:any)']	=	"ajax/users/Threads/getThreadsBy/$1/$2";
+			
 			
 	//admins
 		//categories
