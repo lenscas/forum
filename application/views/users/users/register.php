@@ -60,7 +60,8 @@
 							data	:	{password	:	password, 
 									passwordCheck	:	passwordCheck,
 									username		:	username,
-									mail			:	mail
+									mail			:	mail,
+									noForge			:	"<?php echo $noForge ?>"
 								},
 							dataType:	"json",
 							success	:	function(data){

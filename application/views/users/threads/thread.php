@@ -18,7 +18,7 @@ $("#delete").on("click",function(event){
 	event.preventDefault()
 	var button = this
 	$.ajax({
-		url		:	"<?php echo base_url("index.php/ajax/threads/delete/".$code) ?>",
+		url		:	"<?php echo base_url("index.php/ajax/threads/delete/".$code."/".$noForge) ?>",
 		method	:	"GET",
 		dataType:	"json",
 		success	:	function(data){

@@ -10,7 +10,7 @@ class Users extends User_Parent {
 		parent::redirectLoggedIn();
 		$error;
 		if($this->input->post()){
-			$error=$this->Users_model->login($this->input->post());
+			$error=$this->Users_model->login(parent::getPostSafe());
 		}
 		if(!$error){
 			echo json_encode(array("loggedIn"=>true));
@@ -22,8 +22,15 @@ class Users extends User_Parent {
 		$error;
 		$success=false;
 		parent::redirectLoggedIn();
-		if($this->input->post()){
-			$error=$this->Users_model->register($this->input->post());
+		$post=parent::getPostSafe();
+		if($post){
+			$data=parent::checkLegit($post['noForge']);
+			if($data['success']){
+				unset($post['noForge']);
+				$error=$this->Users_model->register(parent::getPostSafe());
+			} else {
+				$error=$data['error'];
+			}
 		} else {
 			$error="No post data found";
 		}

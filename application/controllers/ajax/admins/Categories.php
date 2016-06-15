@@ -12,7 +12,10 @@ class Categories extends Admin_parent{
 		$this->form_validation->set_rules("name","Categorie name","required");
 		$this->form_validation->set_rules("rulesId","Rule","required|integer");
 		if($this->form_validation->run()){
-			echo json_encode($this->Category_model->create($this->input->post()));
+			$post=parent::getPostSafe();
+			parent::checkLegit($post['noForge'],"die");
+			unset($post['noForge']);
+			echo json_encode($this->Category_model->create($post));
 		} else {
 			$data=array("success"=>false,"error"=>validation_errors());
 			echo json_encode($data);
