@@ -16,24 +16,43 @@ class Admin_Parent extends User_Parent	{
 }
 class User_Parent extends CI_Controller {
 	//used to make sure the construct of the parent always gets executed
+	public $sessionData;
 	public function __construct() {
 		parent::__construct();
+		$this->sessionData=$this->session->userData();
+		if(!isset($this->sessionData['noForge'])){
+			$this->load->helper("string");
+			$sessionData['noForge']=random_string("alnum",8);
+			$this->session->set_userdata(array("noForge"=>$sessionData['noForge']));
+		}
+		echo $this->sessionData['noForge'];
+	}
+	public function checkLegit($code,$noRedirect=true){
+		if($code != $this->sessionData['noForge']){
+			if($noRedirect){
+				return array("success"=>false,"error"=>"Strings don't match'");
+			} else {
+				redirect("profile");
+			}
+		}
+		return array("success"=>true);
+	}
+	public function getPostSafe(){
+		return $this->security->xss_clean($this->input->post());
 	}
 	//used to force a login
 	public function forceLogIn(){
-		if(!$this->session->has_userdata("userId")){
+		if(!isset($this->sessionData['userId'])){
 			redirect("login");
 		}
 	}
 	//used to force a log in and get the user id as well
 	public function getIdForced(){
-		
 		$this->forceLogIn();
-		return $this->session->userId;
+		return $this->sessionData['userId'];
 	}
 	public function redirectLoggedIn(){
-		$this->load->library('session');
-		if($this->session->has_userdata("userId")){
+		if(isset($this->userData["userId"])){
 			redirect("profile");
 		}
 	}
@@ -45,7 +64,7 @@ class User_Parent extends CI_Controller {
 			$headerData=$dataOverWrite;
 			
 		} else {
-			if($this->session->has_userdata("userId")){
+			if(isset($this->userData["userId"])){
 				$headerData['loggedIn']=true;
 			}else{
 				$headerData['loggedIn']=false;
