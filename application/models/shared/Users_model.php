@@ -19,18 +19,22 @@ class Users_model extends MY_Model {
 	public function logIn($data){
 		//need to check later why I didn't use the post check libary or whatever it is called
 		if($data["username"]!="" && $data['password']!=""){
-			$this->db->select("*");
+			$this->db->select("*,themes.id as themeId");
 			$this->db->from("users");
 			$this->db->where("username",$data["username"]);
 			$this->db->where("activated",1);
 			$this->db->where("removed",0);
-			
+			$this->db->join("themes","users.customTheme=themes.id");
 			$query=$this->db->get();
 			$result= $query->row_array();
 			
 			if($result){
 				$this->load->library("encrypt");
 				if($data['password']==$this->encrypt->decode($result["password"])){
+					if($result['customTheme']!=0){
+						$this->session->set_userdata("theme",$result['location']);
+						$this->session->set_userdata("themeId",$result['themeId']);
+					}
 					$this->session->set_userdata("userId",$result['id']);
 					$this->session->set_userdata("status",$result['status']);
 					return false;
