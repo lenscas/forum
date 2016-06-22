@@ -6,6 +6,7 @@ class Admin_Parent extends User_Parent	{
 	}
 	public function loadAll($load,$data=array(),$overWriteHeader = false){
 		$this->loadHeader();
+		$data['noForge']=$this->sessionData['noForge'];
 		$this->load->view("admin/partials/menu.php");
 		$this->load->view("admin/".$load,$data);
 		$this->load->view("admin/partials/footer.php");
@@ -22,17 +23,18 @@ class User_Parent extends CI_Controller {
 		$this->sessionData=$this->session->userData();
 		if(!isset($this->sessionData['noForge'])){
 			$this->load->helper("string");
-			$sessionData['noForge']=random_string("alnum",8);
-			$this->session->set_userdata(array("noForge"=>$sessionData['noForge']));
+			$this->sessionData['noForge']=random_string("alnum",8);
+			$this->session->set_userdata(array("noForge"=>$this->sessionData['noForge']));
 		}
-		echo $this->sessionData['noForge'];
 	}
-	public function checkLegit($code,$noRedirect=true){
+	public function checkLegit($code,$mode="error",$to="profile"){
 		if($code != $this->sessionData['noForge']){
-			if($noRedirect){
-				return array("success"=>false,"error"=>"Strings don't match'");
+			if($mode=="redirect") {
+				redirect($to);
+			}elseif($mode=="die"|| $mode=="exit"){
+				exit;
 			} else {
-				redirect("profile");
+				return array("success"=>false,"error"=>"Strings don't match'");
 			}
 		}
 		return array("success"=>true);
@@ -52,7 +54,7 @@ class User_Parent extends CI_Controller {
 		return $this->sessionData['userId'];
 	}
 	public function redirectLoggedIn(){
-		if(isset($this->userData["userId"])){
+		if(isset($this->sessionData["userId"])){
 			redirect("profile");
 		}
 	}
@@ -74,6 +76,7 @@ class User_Parent extends CI_Controller {
 	}
 	//loads the header, the sidebars, the specified view and the footer
 	public function loadAll($view,$data=array(),$overWriteHeader=false){
+		$data['noForge']=$this->sessionData['noForge'];
 		$this->loadHeader($overWriteHeader);
 		$this->load->view("users/partials/firstSideBar");
 		$this->load->view("users/".$view,$data);
@@ -86,6 +89,12 @@ class User_Parent extends CI_Controller {
 		$this->load->view("front/".$view,$data);
 		$this->load->view("front/defaults/footer.php");
 		
+	}
+
+	public function checkStringForUrls($string){
+
+
+
 	}
 
 }

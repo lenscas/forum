@@ -74,7 +74,7 @@
 			$.ajax({
 				url		:	"<?php echo base_url("index.php/ajax/admin/categories/create") ?>",
 				method	:	"POST",
-				data	:	{rulesId : rule, name : name},
+				data	:	{rulesId : rule, name : name, noForge : "<?php echo $noForge ?>"},
 				dataType:	"json",
 				success	:	function(data){
 					if(data.success){

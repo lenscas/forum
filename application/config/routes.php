@@ -76,9 +76,12 @@ $route['translate_uri_dashes'] = FALSE;
 			$route['ajax/login']	=	"ajax/users/Users/login";
 			$route['ajax/profile/(:any)']	=	"ajax/users/Users/profile/$1";
 		//threads
-		$route['ajax/threads/delete/(:any)']	=	"ajax/users/Threads/delete/$1";
+			$route['ajax/threads/delete/(:any)/(:any)']	=	"ajax/users/Threads/delete/$1/$2";
+			$route['ajax/threads/create']	=	"ajax/users/Threads/create";
 			$route['ajax/threads/(:any)/(:any)']	=	"ajax/users/Threads/getThreadsBy/$1/$2";
-			
+		//posts
+			$route['ajax/posts/create']	=	"ajax/users/Posts/create";
+			$route['ajax/posts/(:any)']	=	"ajax/users/Posts/getPostsByThreadCode/$1";
 			
 	//admins
 		//categories

@@ -20,11 +20,6 @@ class Welcome extends User_parent {
 	 */
 	public function index()
 	{
-		$data=array("<p>test</p>","<div>OMG!","<script> alert('fuck you')</script>");
-		print_r($data);
-		$data=parent::getPostSafe($data);
-		print_r($data);
-		echo "Welcome index<br>";
 		$this->load->view('welcome_message');
 	}
 }
