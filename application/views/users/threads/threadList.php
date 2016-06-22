@@ -33,8 +33,9 @@
 						data	:	{title : title, code : "<?php echo $code ?>"},
 						dataType:	"json",
 						success	:	function(data){
-							console.log(data)
-					
+							console.log("test")
+							location.reload()
+							
 						}
 						
 					})

@@ -61,7 +61,7 @@ class Thread_model extends My_model{
 		);
 
 		$this->db->insert('threads', $data);
-
+		return array("success"=>true);
 
 	}
 

@@ -54,7 +54,7 @@ class Posts_model extends My_model{
 
 		$this->db->where('id', $userId);
 		$this->db->update('users', $data2);
-
+		return array("success"=>true);
 	}
 
 	public function getPosts($code){

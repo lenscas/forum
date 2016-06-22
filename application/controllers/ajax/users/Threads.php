@@ -23,14 +23,14 @@ class Threads extends User_parent{
 
 	public function create(){
 		$userId=$this->session->userId;
-		//if($userId){
-			echo json_encode($this->input->post("title"));
-		$data = $this->input->post();
+		if($userId){
+			//echo json_encode($this->input->post("title"));
+			$data = parent::getPostSafe();
 			echo json_encode($this->Thread_model->create($data,$userId));
-			echo json_encode(array("success"=>true));
-		//} else {
+			//echo json_encode(array("success"=>true));
+		} else {
 			echo json_encode(array("success"=>false));
-		//}
+		}
 	}
 }
 ?>
