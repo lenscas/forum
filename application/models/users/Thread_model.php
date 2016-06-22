@@ -42,5 +42,28 @@ class Thread_model extends My_model{
 		}
 	}
 
+		public function create($data,$userId){
+		$code=parent::createCode("threads");
+
+		$catId	=	$this->db->select("id")
+					->from("Categories")
+					->where("code",$data['code'])
+					->get()
+					->row_array();
+
+
+		$data = array(
+	        'code' => $code,
+	        'title' => $data['title'],
+	        'creatorId' => $userId,
+	        'categoryId' => $catId['id'],
+	        'visible' => "1"
+		);
+
+		$this->db->insert('threads', $data);
+
+
+	}
+
 }
 ?>

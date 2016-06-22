@@ -25,6 +25,8 @@ class User_Parent extends CI_Controller {
 			$this->load->helper("string");
 			$this->sessionData['noForge']=random_string("alnum",8);
 			$this->session->set_userdata(array("noForge"=>$this->sessionData['noForge']));
+<<<<<<< HEAD
+=======
 		}
 		if(!isset($this->sessionData['theme'])){
 			$this->load->model("shared/Config_model");
@@ -33,6 +35,7 @@ class User_Parent extends CI_Controller {
 			$this->sessionData['themeId']=$themeData['id'];
 			$this->session->set_userdata("theme",$themeData['location']);
 			$this->session->set_userdata("themeId",$themeData['id']);
+>>>>>>> master
 		}
 	}
 	public function checkLegit($code,$mode="error",$to="profile"){
