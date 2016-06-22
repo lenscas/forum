@@ -19,12 +19,12 @@ class Users_model extends MY_Model {
 	public function logIn($data){
 		//need to check later why I didn't use the post check libary or whatever it is called
 		if($data["username"]!="" && $data['password']!=""){
-			$this->db->select("*,themes.id as themeId");
+			$this->db->select("*,themes.id as themeId,users.id as userId");
 			$this->db->from("users");
 			$this->db->where("username",$data["username"]);
 			$this->db->where("activated",1);
 			$this->db->where("removed",0);
-			$this->db->join("themes","users.customTheme=themes.id");
+			$this->db->join("themes","users.customTheme=themes.id","left");
 			$query=$this->db->get();
 			$result= $query->row_array();
 			
@@ -35,7 +35,7 @@ class Users_model extends MY_Model {
 						$this->session->set_userdata("theme",$result['location']);
 						$this->session->set_userdata("themeId",$result['themeId']);
 					}
-					$this->session->set_userdata("userId",$result['id']);
+					$this->session->set_userdata("userId",$result['userId']);
 					$this->session->set_userdata("status",$result['status']);
 					return false;
 				} else {
@@ -111,5 +111,14 @@ class Users_model extends MY_Model {
 					->row_array();
 		return $data;
 	}
-
+	public function changeUserTheme($userId,$themeData){
+			$this->db->where("id",$userId)->update("users",array("customTheme"=>$themeData->id));
+	}
+	public function getThemeById($themeId){
+		return	$this->db->select("id,location")
+				->from("themes")
+				->where("id",$themeId)
+				->get()
+				->row();
+	}
 }
