@@ -10,13 +10,12 @@ class Config_model extends MY_model{
 				->result_array();
 	}
 	public function getDefaultTheme(){
-		return	$this->db->select("themes.location")
+		return	$this->db->select("themes.location,themes.id")
 				->from("config")
 				->where("config.name","defaultTheme")
 				->join("themes","themes.id=config.value")
 				->get()
-				->row()
-				->location;
+				->row_array();
 	}
 }
 ?>

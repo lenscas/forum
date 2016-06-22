@@ -28,7 +28,11 @@ class User_Parent extends CI_Controller {
 		}
 		if(!isset($this->sessionData['theme'])){
 			$this->load->model("shared/Config_model");
-			$this->sessionData['theme']=$this->Config_model->getDefaultTheme();
+			$themeData=$this->Config_model->getDefaultTheme();
+			$this->sessionData['theme']=$themeData['location'];
+			$this->sessionData['themeId']=$themeData['id'];
+			$this->session->set_userdata("theme",$themeData['location']);
+			$this->session->set_userdata("themeId",$themeData['id']);
 		}
 	}
 	public function checkLegit($code,$mode="error",$to="profile"){
@@ -71,7 +75,7 @@ class User_Parent extends CI_Controller {
 			$headerData=$dataOverWrite;
 			
 		} else {
-			if(isset($this->userData["userId"])){
+			if(isset($this->sessionData["userId"])){
 				$headerData['loggedIn']=true;
 				
 				
@@ -81,6 +85,9 @@ class User_Parent extends CI_Controller {
 		}
 		if(!isset($headerData['theme'])){
 			$headerData['theme']=$this->sessionData['theme'];
+		}
+		if(!isset($headerData['themeId'])){
+			$headerData['themeId']=$this->sessionData['themeId'];
 		}
 		if(!isset($headerData['themes'])){
 			$headerData['themes']=$this->Config_model->getAllThemes();
