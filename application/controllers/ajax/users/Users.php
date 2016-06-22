@@ -44,5 +44,19 @@ class Users extends User_Parent {
 		//print_r($data);
 		echo json_encode($data);
 	}
+	public function themeSelect($themeId){
+		$data=$this->Users_model->getThemeById($themeId);
+		if(isset($this->sessionData['userId']) && $data){
+			$this->Users_model->changeUserTheme($this->sessionData['userId'],$data);
+		}
+		if($data){
+			$this->session->set_userdata("themeId",$themeId);
+			$this->session->set_userdata("theme",$data->location);
+			$return=array("success"=>true);
+		}else {
+			$return =array("success"=>false,"error"=>"Theme does not exist");
+		}
+		echo json_encode($return);
+	}
 
 }

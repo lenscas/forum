@@ -16,7 +16,7 @@
     <!-- 
     <link href="<?php echo base_url("third_party/bootstrap-3.3.5-dist/css/bootstrap.min.css")?>" rel="stylesheet">
 	-->
-	<link href="<?php echo base_url("third_party/themes/slate.min.css") ?>" rel="stylesheet">
+	<link href="<?php echo base_url($theme) ?>" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo base_url("third_party/startbootsrtap/css/heroic-features.css")?>" rel="stylesheet">
     <!-- Font Awesome because Awesome> !-->
@@ -102,11 +102,23 @@
 					if($loggedIn){
 				?>
 					<ul class="nav navbar-nav">
-						<li><a href="<?php echo base_url("index.php/select/species") ?>">Create new character</a></li>
 						<li><a href="<?php echo base_url("index.php/select/deck") ?>">Edit deck</a></li>
 						<li><a href="<?php echo base_url("index.php/game/worldmap") ?>">World map</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<div class="form-group">
+								<select id="themeSelection" class="form-control">
+									<?php 
+										foreach($themes as $key=>$value){
+									?>
+											<option id="<?php echo $value['id'] ?>" <?php if($value['id']==$themeId){echo "selected";}?>><?php echo $value['name'] ?></option>
+									<?php
+										}
+									?>
+								</select>
+							</div>
+						</li>
 						<li><a href="<?php echo base_url("index.php/profile") ?>">Profile</a></li>
 						<li><a href="<?php echo base_url("index.php/logout") ?>">Logout</a></li>
 					</ul>
@@ -115,8 +127,22 @@
 					} else {
 				?>
 					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<div class="form-group">
+								<select id="themeSelection" class="form-control">
+									<?php 
+										foreach($themes as $key=>$value){
+									?>
+											<option id="<?php echo $value['id'] ?>" <?php if($value['id']==$themeId){echo "selected";}?>><?php echo $value['name'] ?></option>
+									<?php
+										}
+									?>
+								</select>
+							</div>	
+						</li>
 						<li class="" id="headerDropdown"> <a href="#" class="dropdown-toggle"><b>Login</b> <span class="caret"></span></a>
 								<ul id="login-dp" class="dropdown-menu">
+									
 									<li>
 										 <div class="row">
 												<div class="col-md-12">
@@ -215,5 +241,19 @@
 			NEED_OPEN= ! NEED_OPEN
 
 		})
-
+	$("#themeSelection").on("change",function(event){
+		var id=$(this).find(":selected").attr("id")
+		$.ajax({
+			url		:	"<?php echo base_url("index.php/ajax/users/update/theme")?>/"+id,
+			method	:	"GET",
+			dataType:	"json",
+			success	:	function(data){
+				console.log(data)
+				if(data.success){
+					location.reload()
+				}
+			}
+		})
+	})
     </script>
+    WTF?!?

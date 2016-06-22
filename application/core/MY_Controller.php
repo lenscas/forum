@@ -25,6 +25,17 @@ class User_Parent extends CI_Controller {
 			$this->load->helper("string");
 			$this->sessionData['noForge']=random_string("alnum",8);
 			$this->session->set_userdata(array("noForge"=>$this->sessionData['noForge']));
+<<<<<<< HEAD
+=======
+		}
+		if(!isset($this->sessionData['theme'])){
+			$this->load->model("shared/Config_model");
+			$themeData=$this->Config_model->getDefaultTheme();
+			$this->sessionData['theme']=$themeData['location'];
+			$this->sessionData['themeId']=$themeData['id'];
+			$this->session->set_userdata("theme",$themeData['location']);
+			$this->session->set_userdata("themeId",$themeData['id']);
+>>>>>>> master
 		}
 	}
 	public function checkLegit($code,$mode="error",$to="profile"){
@@ -61,16 +72,28 @@ class User_Parent extends CI_Controller {
 	//only loads the header
 	public function loadHeader($dataOverWrite=false){
 		//$this->load->model("defaults_model.php");
+		$this->load->model("shared/Config_model");
 		$headerData=array();
 		if($dataOverWrite){
 			$headerData=$dataOverWrite;
 			
 		} else {
-			if(isset($this->userData["userId"])){
+			if(isset($this->sessionData["userId"])){
 				$headerData['loggedIn']=true;
+				
+				
 			}else{
 				$headerData['loggedIn']=false;
 			}
+		}
+		if(!isset($headerData['theme'])){
+			$headerData['theme']=$this->sessionData['theme'];
+		}
+		if(!isset($headerData['themeId'])){
+			$headerData['themeId']=$this->sessionData['themeId'];
+		}
+		if(!isset($headerData['themes'])){
+			$headerData['themes']=$this->Config_model->getAllThemes();
 		}
 		$this->load->view("users/partials/header.php",$headerData);
 	}
