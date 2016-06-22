@@ -1,10 +1,16 @@
+<div id="templates" style="display:none">
+	<div class="post">
+		<div class="content row"></div>
+		<div class="postFooter"></div>
+	</div>
+</div>
 <div class="col-md-8">
 	<div class="row">
 		<div class="col-md-12">
 			<h1 id="threadTitle"></h1>
 				<div class="col-md-6">
 			
-				<label>Content:    </label><textarea text id="postContent"></textarea> <button type="submit" id="createPost" class="btn btn-primary btn-block">Create post</button>
+				<textarea text id="postContent"></textarea> <button type="submit" id="createPost" class="btn btn-primary btn-block">Create post</button>
 				
 				<br>
 			</div>
@@ -17,12 +23,22 @@
 			?>
 		</div>
 	</div>
+	<div class="col-md-12" id="postsdiv">
+
+
+	</div>
 </div>
 
 <script>
+  tinymce.init({
+    selector: '#postContent',
+     plugins: "link"
+  });
+
+
 	$("#createPost").on("click",function(event){
 				event.preventDefault();
-				var content	=	$("#postContent").val()
+				var content	=	tinyMCE.get("postContent").getContent()
 
 
 				if( content ){
@@ -32,7 +48,8 @@
 						data	:	{content : content, code : "<?php echo $code ?>"},
 						dataType:	"json",
 						success	:	function(data){
-							console.log(data)
+
+							location.reload();
 					
 						}
 						
@@ -63,7 +80,15 @@ $.ajax({
 		method	:	"GET",
 		dataType:	"json",
 		success	:	function(data){
-			console.log(data);
+
+			var postContainer	=	$("#postsdiv")
+			var temp =	$("#templates").find(".post")
+			$.each(data,function(key,value){
+				$(temp).find(".content").empty().html(value.content)
+				$(temp).clone().appendTo($(postContainer))
+			})
+
+
 		}
 	})
 

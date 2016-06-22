@@ -91,10 +91,4 @@ class User_Parent extends CI_Controller {
 		
 	}
 
-	public function checkStringForUrls($string){
-
-
-
-	}
-
 }
